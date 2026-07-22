@@ -22,9 +22,19 @@ export async function findById(id) {
   return user.rows[0];
 }
 
-export async function create(data) {
-  console.log(data);
+export async function findByEmail(email) {
+  const user = await pool.query(
+    `
+    SELECT id, name, email, created_at FROM clients
+    WHERE email = $1;
+    `,
+    [email],
+  );
 
+  return user.rows[0];
+}
+
+export async function create(data) {
   const newUser = await pool.query(
     `
         INSERT INTO clients (name, email, password)
