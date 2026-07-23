@@ -1,5 +1,13 @@
 import { pool } from "../database/pool.js";
 
+import {
+  BadRequestError,
+  UnauthorizedError,
+  ForbiddenError,
+  NotFoundError,
+  ConflictError,
+} from "../helpers/api-errors.js";
+
 export async function listAll() {
   const clients = await pool.query(
     `
@@ -35,6 +43,12 @@ export async function findByEmail(email) {
 }
 
 export async function create(data) {
+  const emailExists = await findByEmail(data.email);
+
+  if (emailExists) {
+    throw new ConflictError("email já existe");
+  }
+
   const newUser = await pool.query(
     `
         INSERT INTO clients (name, email, password)
@@ -44,12 +58,16 @@ export async function create(data) {
     [data.name, data.email, data.password],
   );
 
-  console.log(newUser);
-
   return newUser.rows[0];
 }
 
 export async function update(id, data) {
+  const emailExists = await findByEmail(data.email);
+
+  if (emailExists) {
+    throw new ConflictError("email já existe");
+  }
+
   const updatedUser = await pool.query(
     `
         UPDATE clients

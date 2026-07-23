@@ -18,7 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res, next) => {
   getAll(req, res, next);
-  throw new ApiError("cachorro na rua", 409);
 });
 
 app.get("/:id", (req, res, next) => {
