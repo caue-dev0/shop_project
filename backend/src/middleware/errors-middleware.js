@@ -1,18 +1,10 @@
-export default function errorsHandling(err, req, res, next) {
-  const status = err.status || err.statusCode || 500;
+import { ApiError } from "../helpers/api-errors.js";
 
-  const response = {
-    error: {
-      message: err.expose ? err.message : "Internal Error Server",
-      type: err.type || "unknown",
-      status,
-    },
-  };
-  if (err.body) {
-    response.error.body = err.body;
-  }
+export const errorMiddleware = (err, req, res, next) => {
+  console.log(err);
 
-  console.error(`[${new Date().toISOString()}] ${err.stack}`);
+  const statusCode = err.statusCode ?? 500;
+  const message = err.message ? err : "Internal Error Server";
 
-  res.status(status).json(response);
-}
+  return res.status(statusCode).json(message);
+};
