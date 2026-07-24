@@ -1,14 +1,14 @@
 import { pool } from "../database/pool.js";
 
-import { BadRequestError } from "../helpers/api-errors.js";
+import { BadRequestError, UnauthorizedError } from "../helpers/api-errors.js";
 
-import { findByEmail } from "./clients-service.js";
+import { findByEmail, findById } from "./clients-service.js";
 
 import bcrypt from "bcrypt";
 
 import jwt from "jsonwebtoken";
 
-export async function createLogin(data) {
+export async function login(data) {
   const { email, password } = data;
 
   const user = await findByEmail(email);
@@ -30,4 +30,22 @@ export async function createLogin(data) {
   const { password: _, ...userLogin } = user;
 
   return { user: userLogin, token: token };
+}
+
+export async function profile(authorization) {
+  if (!authorization) {
+    throw new UnauthorizedError("Não autorizado.");
+  }
+
+  const token = authorization.split(" ")[1];
+
+  const { id } = jwt.verify(token, process.env.JWT_PASSWORD);
+
+  const user = await findById(id);
+
+  if (!user) {
+    throw new UnauthorizedError("Não autorizado.");
+  }
+
+  return user;
 }

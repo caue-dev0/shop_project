@@ -1,14 +1,27 @@
 import { loginSchema } from "../schemas/login-schema.js";
 
-import { createLogin } from "../service/login-service.js";
+import { login, profile } from "../service/login-service.js";
 
-export async function login(req, res, next) {
+export async function postLogin(req, res, next) {
   try {
     const data = loginSchema.parse(req.body);
 
-    const user = await createLogin(data);
+    const user = await login(data);
 
     res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getProfile(req, res, next) {
+  try {
+    const { authorization } = req.headers;
+
+    const authorized = await profile(authorization);
+    console.log(authorized);
+
+    res.status(200).json(authorized);
   } catch (err) {
     next(err);
   }

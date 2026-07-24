@@ -8,16 +8,26 @@ import {
   deleteRemove,
 } from "../controller/clients-controller.js";
 
-import { login } from "../controller/login-controller.js";
+import { postLogin, getProfile } from "../controller/login-controller.js";
 
 const routes = Router();
 
-routes.get("/", getAll);
-routes.get("/:id", getById);
-routes.post("/", postCreate);
-routes.put("/:id", putUpdate);
-routes.delete("/:id", deleteRemove);
+// Routes users
 
-routes.post("/login", login);
+routes.get("/user", getAll);
+
+routes.get("/user/:id", getById);
+
+routes.post("/user", postCreate);
+
+routes.put("/user/:id", putUpdate);
+
+routes.delete("/user/:id", deleteRemove);
+
+// Routes login
+
+routes.post("/login", postLogin);
+
+routes.get("/profile", getProfile);
 
 export default routes;
