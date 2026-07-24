@@ -1,8 +1,10 @@
 import dotenv from "dotenv/config";
+
 import express, { Router } from "express";
+
 import { errorMiddleware } from "./middleware/errors-middleware.js";
 
-import router from "./routes/router.js";
+import routes from "./routes/routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", router);
+app.use(routes);
 
 app.use(errorMiddleware);
 
