@@ -8,6 +8,8 @@ import {
   ConflictError,
 } from "../helpers/api-errors.js";
 
+import bcrypt from "bcrypt";
+
 export async function listAll() {
   const clients = await pool.query(
     `
@@ -33,7 +35,7 @@ export async function findById(id) {
 export async function findByEmail(email) {
   const user = await pool.query(
     `
-    SELECT id, name, email, created_at FROM clients
+    SELECT id, name, email, password, created_at FROM clients
     WHERE email = $1;
     `,
     [email],
@@ -43,11 +45,13 @@ export async function findByEmail(email) {
 }
 
 export async function create(data) {
-  const emailExists = await findByEmail(data.email);
+  const user = await findByEmail(data.email);
 
-  if (emailExists) {
-    throw new ConflictError("email já existe");
+  if (user) {
+    throw new ConflictError("E-mail já existe.");
   }
+
+  const hashPassword = await bcrypt.hash(data.password, 10);
 
   const newUser = await pool.query(
     `
@@ -55,7 +59,7 @@ export async function create(data) {
         VALUES ($1, $2, $3)
         RETURNING id, name, email, created_at;
         `,
-    [data.name, data.email, data.password],
+    [data.name, data.email, hashPassword],
   );
 
   return newUser.rows[0];
