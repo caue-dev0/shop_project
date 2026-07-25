@@ -10,7 +10,7 @@ import {
 
 import bcrypt from "bcrypt";
 
-export async function listAll() {
+export async function listAllClients() {
   const clients = await pool.query(
     `
         SELECT id, name, email, created_at FROM clients;
@@ -20,8 +20,8 @@ export async function listAll() {
   return clients.rows;
 }
 
-export async function findById(id) {
-  const user = await pool.query(
+export async function findClientsById(id) {
+  const clients = await pool.query(
     `
         SELECT id, name, email, created_at FROM clients
         WHERE id = $1;
@@ -29,11 +29,11 @@ export async function findById(id) {
     [id],
   );
 
-  return user.rows[0];
+  return clients.rows[0];
 }
 
-export async function findByEmail(email) {
-  const user = await pool.query(
+export async function findClientsByEmail(email) {
+  const clients = await pool.query(
     `
     SELECT id, name, email, password, created_at FROM clients
     WHERE email = $1;
@@ -41,19 +41,19 @@ export async function findByEmail(email) {
     [email],
   );
 
-  return user.rows[0];
+  return clients.rows[0];
 }
 
-export async function create(data) {
-  const user = await findByEmail(data.email);
+export async function createClients(data) {
+  const clients = await findClientsByEmail(data.email);
 
-  if (user) {
+  if (clients) {
     throw new ConflictError("E-mail já existe.");
   }
 
   const hashPassword = await bcrypt.hash(data.password, 10);
 
-  const newUser = await pool.query(
+  const newCLients = await pool.query(
     `
         INSERT INTO clients (name, email, password)
         VALUES ($1, $2, $3)
@@ -62,17 +62,17 @@ export async function create(data) {
     [data.name, data.email, hashPassword],
   );
 
-  return newUser.rows[0];
+  return newCLients.rows[0];
 }
 
-export async function update(id, data) {
-  const emailExists = await findByEmail(data.email);
+export async function updateClients(id, data) {
+  const emailExists = await findClientsByEmail(data.email);
 
   if (emailExists) {
     throw new ConflictError("email já existe");
   }
 
-  const updatedUser = await pool.query(
+  const updatedClients = await pool.query(
     `
         UPDATE clients
         SET name = $1,
@@ -84,10 +84,10 @@ export async function update(id, data) {
     [data.name, data.email, data.password, id],
   );
 
-  return updatedUser.rows[0];
+  return updatedClients.rows[0];
 }
 
-export async function remove(id) {
+export async function removeClients(id) {
   await pool.query(
     `
         DELETE FROM clients

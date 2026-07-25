@@ -1,6 +1,6 @@
 import { BadRequestError, UnauthorizedError } from "../helpers/api-errors.js";
 
-import { findByEmail, findById } from "./clients-service.js";
+import { findClientsByEmail, findClientsById } from "./clients-service.js";
 
 import bcrypt from "bcrypt";
 
@@ -9,23 +9,23 @@ import jwt from "jsonwebtoken";
 export async function login(data) {
   const { email, password } = data;
 
-  const user = await findByEmail(email);
+  const clients = await findClientsByEmail(email);
 
-  if (!user) {
+  if (!clients) {
     throw new BadRequestError("E-mail ou senha inválidos.");
   }
 
-  const verifyPassword = await bcrypt.compare(password, user.password);
+  const verifyPassword = await bcrypt.compare(password, clients.password);
 
   if (!verifyPassword) {
     throw new BadRequestError("E-mail ou senha inválidos.");
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_PASSWORD, {
+  const token = jwt.sign({ id: clients.id }, process.env.JWT_PASSWORD, {
     expiresIn: "8h",
   });
 
-  const { password: _, ...userLogin } = user;
+  const { password: _, ...userLogin } = clients;
 
   return { user: userLogin, token: token };
 }
@@ -39,11 +39,11 @@ export async function profile(authorization) {
 
   const { id } = jwt.verify(token, process.env.JWT_PASSWORD);
 
-  const user = await findById(id);
+  const clients = await findClientsById(id);
 
-  if (!user) {
+  if (!clients) {
     throw new UnauthorizedError("Não autorizado.");
   }
 
-  return user;
+  return clients;
 }

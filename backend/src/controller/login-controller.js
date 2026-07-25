@@ -4,13 +4,11 @@ import { login, profile } from "../service/login-service.js";
 
 export async function postLogin(req, res, next) {
   try {
-    console.log(req.body);
     const data = loginSchema.parse(req.body);
-    console.log(data);
 
-    const user = await login(data);
+    const clients = await login(data);
 
-    res.status(200).json(user);
+    res.status(200).json(clients);
   } catch (err) {
     next(err);
   }
@@ -21,7 +19,6 @@ export async function getProfile(req, res, next) {
     const { authorization } = req.headers;
 
     const authorized = await profile(authorization);
-    console.log(authorized);
 
     res.status(200).json(authorized);
   } catch (err) {

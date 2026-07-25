@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const userSchema = z.object({
+export const clientsSchema = z.object({
   name: z.string().min(3, "Mínimo de 3 caracteres."),
   email: z.email(),
   password: z
@@ -9,4 +9,4 @@ export const userSchema = z.object({
     .max(24, "Máximo de 24 caracteres"),
 });
 
-export const userSchemaId = z.uuidv7("error");
+export const clientsSchemaId = z.uuidv7("error");

@@ -1,65 +1,65 @@
 import {
-  listAll,
-  findById,
-  create,
-  update,
-  remove,
+  listAllClients,
+  findClientsById,
+  createClients,
+  updateClients,
+  removeClients,
 } from "../service/clients-service.js";
 
-import { userSchema, userSchemaId } from "../schemas/user-schema.js";
+import { clientsSchema, clientsSchemaId } from "../schemas/clients-schema.js";
 
-export async function getAll(req, res, next) {
+export async function getAllClients(req, res, next) {
   try {
-    const users = await listAll();
+    const clients = await listAllClients();
 
-    res.status(200).json(users);
+    res.status(200).json(clients);
   } catch (err) {
     next(err);
   }
 }
 
-export async function getById(req, res, next) {
+export async function getClientsById(req, res, next) {
   try {
-    const id = userSchemaId.parse(req.params.id);
+    const id = clientsSchemaId.parse(req.params.id);
 
-    const user = await findById(id);
+    const clients = await findClientsById(id);
 
-    res.status(200).json(user);
+    res.status(200).json(clients);
   } catch (err) {
     next(err);
   }
 }
 
-export async function postCreate(req, res, next) {
+export async function postCreateClients(req, res, next) {
   try {
-    const data = userSchema.parse(req.body);
+    const data = clientsSchema.parse(req.body);
 
-    const newUser = await create(data);
+    const newClients = await createClients(data);
 
-    res.status(201).json(newUser);
+    res.status(201).json(newClients);
   } catch (err) {
     next(err);
   }
 }
 
-export async function putUpdate(req, res, next) {
+export async function putUpdateClients(req, res, next) {
   try {
-    const id = userSchemaId.parse(req.params.id);
-    const data = userSchema.parse(req.body);
+    const id = clientsSchemaId.parse(req.params.id);
+    const data = clientsSchema.parse(req.body);
 
-    const updatedUser = await update(req.params.id, data);
+    const updatedClients = await updateClients(id, data);
 
-    res.status(200).json(updatedUser);
+    res.status(200).json(updatedClients);
   } catch (err) {
     next(err);
   }
 }
 
-export async function deleteRemove(req, res, next) {
+export async function deleteClients(req, res, next) {
   try {
-    const id = userSchemaId.parse(req.params.id);
+    const id = clientsSchemaId.parse(req.params.id);
 
-    await remove(id);
+    await removeClients(id);
 
     res.status(204).json({ message: "Usuário removido com sucesso." });
   } catch (err) {
