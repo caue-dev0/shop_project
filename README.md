@@ -20,31 +20,54 @@ API REST para gerenciamento de uma loja virtual, permitindo cadastro e autentica
 
 Primeiro clone o repositório na sua máquina:
 
-> `git clone https://github.com/caue-dev0/shop_project.git`
+```bash
+git clone https://github.com/caue-dev0/shop_project.git
 
-Em seguida entre no repositório local e baixe as dependências do projeto utilizando o npm:
+cd shop_project
 
-> `npm install`
+npm install
 
-para executar o projeto utilize o seguinte script:
+npm run dev
+```
 
-> `npm run dev`
-
-## Quais as rotas para as requisições?
+## Endpoints da API
 
 ### Rotas básicas de clientes
 
-| Método | Endpoint  | Descrição         |
-| ------ | --------- | ----------------- |
-| GET    | /user     | Listar usuários   |
-| GET    | /user/:id | Buscar usuário    |
-| POST   | /user     | Criar usuário     |
-| PUT    | /user/:id | Atualizar usuário |
-| DELETE | /user/:id | Listar usuários   |
+Corpo da requisição
 
-### Rotas básicas de login
+```json
+{
+  "name": "Maria",
+  "email": "maria@email.com",
+  "password": "12345678"
+}
+```
+
+| Método | Endpoint     | Descrição         |
+| ------ | ------------ | ----------------- |
+| GET    | /clients     | Listar clientes   |
+| GET    | /clients/:id | Buscar cliente    |
+| POST   | /clients     | Criar cliente     |
+| PUT    | /clients/:id | Atualizar cliente |
+| DELETE | /clients/:id | Remover cliente   |
+
+### Rotas de autenticação
+
+Corpo da requisição para login:
+
+```json
+{
+  "email": "maria@email.com",
+  "password": "12345678"
+}
+```
 
 | Método | Endpoint | Descrição              |
 | ------ | -------- | ---------------------- |
 | GET    | /profile | Verificar autenticação |
 | POST   | /login   | Realizar login         |
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo `LICENSE` para mais informações.
