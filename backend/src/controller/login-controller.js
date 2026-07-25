@@ -4,7 +4,9 @@ import { login, profile } from "../service/login-service.js";
 
 export async function postLogin(req, res, next) {
   try {
+    console.log(req.body);
     const data = loginSchema.parse(req.body);
+    console.log(data);
 
     const user = await login(data);
 

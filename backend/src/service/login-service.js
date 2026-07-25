@@ -1,5 +1,3 @@
-import { pool } from "../database/pool.js";
-
 import { BadRequestError, UnauthorizedError } from "../helpers/api-errors.js";
 
 import { findByEmail, findById } from "./clients-service.js";
