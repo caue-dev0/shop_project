@@ -21,7 +21,7 @@ export async function login(data) {
     throw new BadRequestError("E-mail ou senha inválidos.");
   }
 
-  const token = jwt.sign({ id: clients.id }, process.env.JWT_PASSWORD, {
+  const token = jwt.sign({ id: clients.id }, process.env.JWT_SECRET, {
     expiresIn: "8h",
   });
 
@@ -37,7 +37,7 @@ export async function profile(authorization) {
 
   const token = authorization.split(" ")[1];
 
-  const { id } = jwt.verify(token, process.env.JWT_PASSWORD);
+  const { id } = jwt.verify(token, process.env.JWT_SECRET);
 
   const clients = await findClientsById(id);
 
