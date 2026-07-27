@@ -10,18 +10,18 @@ import {
 
 import bcrypt from "bcrypt";
 
-export async function listAllClients() {
-  const clients = await pool.query(
+export async function listAllUsers() {
+  const users = await pool.query(
     `
         SELECT id, name, email, created_at FROM clients;
         `,
   );
 
-  return clients.rows;
+  return users.rows;
 }
 
-export async function findClientsById(id) {
-  const clients = await pool.query(
+export async function findUsersById(id) {
+  const users = await pool.query(
     `
         SELECT id, name, email, created_at FROM clients
         WHERE id = $1;
@@ -29,11 +29,11 @@ export async function findClientsById(id) {
     [id],
   );
 
-  return clients.rows[0];
+  return users.rows[0];
 }
 
-export async function findClientsByEmail(email) {
-  const clients = await pool.query(
+export async function findUsersByEmail(email) {
+  const users = await pool.query(
     `
     SELECT id, name, email, password, created_at FROM clients
     WHERE email = $1;
@@ -41,11 +41,11 @@ export async function findClientsByEmail(email) {
     [email],
   );
 
-  return clients.rows[0];
+  return users.rows[0];
 }
 
-export async function createClients(data) {
-  const clients = await findClientsByEmail(data.email);
+export async function createUsers(data) {
+  const clients = await findUsersByEmail(data.email);
 
   if (clients) {
     throw new ConflictError("E-mail já existe.");
@@ -53,7 +53,7 @@ export async function createClients(data) {
 
   const hashPassword = await bcrypt.hash(data.password, 10);
 
-  const newCLients = await pool.query(
+  const newUsers = await pool.query(
     `
         INSERT INTO clients (name, email, password)
         VALUES ($1, $2, $3)
@@ -62,17 +62,17 @@ export async function createClients(data) {
     [data.name, data.email, hashPassword],
   );
 
-  return newCLients.rows[0];
+  return newUsers.rows[0];
 }
 
-export async function updateClients(id, data) {
-  const emailExists = await findClientsByEmail(data.email);
+export async function updateUsers(id, data) {
+  const emailExists = await findUsersByEmail(data.email);
 
   if (emailExists) {
     throw new ConflictError("email já existe");
   }
 
-  const updatedClients = await pool.query(
+  const updatedUsers = await pool.query(
     `
         UPDATE clients
         SET name = $1,
@@ -84,10 +84,10 @@ export async function updateClients(id, data) {
     [data.name, data.email, data.password, id],
   );
 
-  return updatedClients.rows[0];
+  return updatedUsers.rows[0];
 }
 
-export async function removeClients(id) {
+export async function removeUsers(id) {
   await pool.query(
     `
         DELETE FROM clients

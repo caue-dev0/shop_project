@@ -16,12 +16,19 @@ async function login() {
       body: JSON.stringify({ email, password }),
     });
 
+    const data = await response.json();
     if (response.ok) {
       console.log("Requisição foi enviada com sucesso!");
-    } else {
-      console.log("Erro no servidor: ", response.statusText);
     }
+
+    localStorage.setItem("token", data.token);
   } catch (error) {
     console.error("Erro na requisição: ", error);
   }
+}
+
+function getAuthHeaders() {
+  return {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
 }

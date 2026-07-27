@@ -1,11 +1,11 @@
 import { Router } from "express";
 
 import {
-  getAllClients,
-  getClientsById,
-  postCreateClients,
-  putUpdateClients,
-  deleteClients,
+  getAllUsers,
+  getUsersById,
+  postCreateUsers,
+  putUpdateUsers,
+  deleteUsers,
 } from "../controller/clients-controller.js";
 
 import { postLogin, getProfile } from "../controller/login-controller.js";
@@ -14,15 +14,15 @@ const routes = Router();
 
 // Routes users
 
-routes.get("/clients", getAllClients);
+routes.get("/users", getAllUsers);
 
-routes.get("/clients/:id", getClientsById);
+routes.get("/users/:id", getUsersById);
 
-routes.post("/clients", postCreateClients);
+routes.post("/users", postCreateUsers);
 
-routes.put("/clients/:id", putUpdateClients);
+routes.put("/users/:id", putUpdateUsers);
 
-routes.delete("/clients/:id", deleteClients);
+routes.delete("/users/:id", deleteUsers);
 
 // Routes login
 

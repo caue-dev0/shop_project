@@ -1,65 +1,65 @@
 import {
-  listAllClients,
-  findClientsById,
-  createClients,
-  updateClients,
-  removeClients,
+  listAllUsers,
+  findUsersById,
+  createUsers,
+  updateUsers,
+  removeUsers,
 } from "../service/clients-service.js";
 
-import { clientsSchema, clientsSchemaId } from "../schemas/clients-schema.js";
+import { clientsSchema, clientsSchemaId } from "../schemas/users-schema.js";
 
-export async function getAllClients(req, res, next) {
+export async function getAllUsers(req, res, next) {
   try {
-    const clients = await listAllClients();
+    const users = await listAllUsers();
 
-    res.status(200).json(clients);
+    res.status(200).json(users);
   } catch (err) {
     next(err);
   }
 }
 
-export async function getClientsById(req, res, next) {
+export async function getUsersById(req, res, next) {
   try {
     const id = clientsSchemaId.parse(req.params.id);
 
-    const clients = await findClientsById(id);
+    const users = await findUsersById(id);
 
-    res.status(200).json(clients);
+    res.status(200).json(users);
   } catch (err) {
     next(err);
   }
 }
 
-export async function postCreateClients(req, res, next) {
+export async function postCreateUsers(req, res, next) {
   try {
     const data = clientsSchema.parse(req.body);
 
-    const newClients = await createClients(data);
+    const newUsers = await createUsers(data);
 
-    res.status(201).json(newClients);
+    res.status(201).json(newUsers);
   } catch (err) {
     next(err);
   }
 }
 
-export async function putUpdateClients(req, res, next) {
+export async function putUpdateUsers(req, res, next) {
   try {
     const id = clientsSchemaId.parse(req.params.id);
     const data = clientsSchema.parse(req.body);
 
-    const updatedClients = await updateClients(id, data);
+    const updatedUsers = await updateUsers(id, data);
 
-    res.status(200).json(updatedClients);
+    res.status(200).json(updatedUsers);
   } catch (err) {
     next(err);
   }
 }
 
-export async function deleteClients(req, res, next) {
+export async function deleteUsers(req, res, next) {
   try {
     const id = clientsSchemaId.parse(req.params.id);
 
-    await removeClients(id);
+    await removeUsers(id);
 
     res.status(204).json({ message: "Usuário removido com sucesso." });
   } catch (err) {
