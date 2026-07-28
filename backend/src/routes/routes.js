@@ -6,7 +6,8 @@ import {
   postCreateUsers,
   putUpdateUsers,
   deleteUsers,
-} from "../controller/clients-controller.js";
+  patchUpdateUsers,
+} from "../controller/users-controller.js";
 
 import { postLogin, getProfile } from "../controller/login-controller.js";
 
@@ -21,6 +22,8 @@ routes.get("/users/:id", getUsersById);
 routes.post("/users", postCreateUsers);
 
 routes.put("/users/:id", putUpdateUsers);
+
+routes.patch("/users/:id", patchUpdateUsers);
 
 routes.delete("/users/:id", deleteUsers);
 

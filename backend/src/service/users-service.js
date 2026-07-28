@@ -66,11 +66,23 @@ export async function createUsers(data) {
 }
 
 export async function updateUsers(id, data) {
+  // - pego o usuário
+  // - faço uma busca com os dados enviado
+  // - comparo se os dados enviados bate com o que já estava no banco de dados
+
+  const user = await findUsersById(id);
+
+  if (!user) {
+    throw new NotFoundError("Usuário não existe");
+  }
+
   const emailExists = await findUsersByEmail(data.email);
 
-  if (emailExists) {
+  if (emailExists && emailExists.id !== user.id) {
     throw new ConflictError("email já existe");
   }
+
+  const hashPassword = await bcrypt.hash(data.password, 10);
 
   const updatedUsers = await pool.query(
     `
@@ -81,7 +93,42 @@ export async function updateUsers(id, data) {
         WHERE id = $4
         RETURNING id, name, email, created_at;
         `,
-    [data.name, data.email, data.password, id],
+    [data.name, data.email, hashPassword, id],
+  );
+
+  return updatedUsers.rows[0];
+}
+
+export async function updateParcialUsers(id, data) {
+  const user = await findUsersById(id);
+
+  if (!user) {
+    throw new NotFoundError("Usuário não existe");
+  }
+
+  if (data.email) {
+    const emailExists = await findUsersByEmail(data.email);
+
+    if (emailExists && emailExists.id !== user.id) {
+      throw new ConflictError("email já existe");
+    }
+  }
+
+  let hashPassword = null;
+
+  if (data.password) {
+    hashPassword = await bcrypt.hash(data.password, 10);
+  }
+  const updatedUsers = await pool.query(
+    `
+    UPDATE clients
+    SET name = COALESCE($1, name),
+        email = COALESCE($2, email),
+        password = COALESCE($3, password)
+    WHERE id = $4
+    RETURNING id, name, email, created_at;
+    `,
+    [data.name, data.email, hashPassword, id],
   );
 
   return updatedUsers.rows[0];

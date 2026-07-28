@@ -1,6 +1,6 @@
 import { BadRequestError, UnauthorizedError } from "../helpers/api-errors.js";
 
-import { findUsersByEmail, findUsersById } from "./clients-service.js";
+import { findUsersByEmail, findUsersById } from "./users-service.js";
 
 import bcrypt from "bcrypt";
 

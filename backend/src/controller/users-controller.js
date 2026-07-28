@@ -4,9 +4,14 @@ import {
   createUsers,
   updateUsers,
   removeUsers,
-} from "../service/clients-service.js";
+  updateParcialUsers,
+} from "../service/users-service.js";
 
-import { clientsSchema, clientsSchemaId } from "../schemas/users-schema.js";
+import {
+  clientsSchema,
+  clientsIdSchema,
+  clientsParcialSchema,
+} from "../schemas/users-schema.js";
 
 export async function getAllUsers(req, res, next) {
   try {
@@ -20,7 +25,7 @@ export async function getAllUsers(req, res, next) {
 
 export async function getUsersById(req, res, next) {
   try {
-    const id = clientsSchemaId.parse(req.params.id);
+    const id = clientsIdSchema.parse(req.params.id);
 
     const users = await findUsersById(id);
 
@@ -44,7 +49,7 @@ export async function postCreateUsers(req, res, next) {
 
 export async function putUpdateUsers(req, res, next) {
   try {
-    const id = clientsSchemaId.parse(req.params.id);
+    const id = clientsIdSchema.parse(req.params.id);
     const data = clientsSchema.parse(req.body);
 
     const updatedUsers = await updateUsers(id, data);
@@ -55,9 +60,21 @@ export async function putUpdateUsers(req, res, next) {
   }
 }
 
+export async function patchUpdateUsers(req, res, next) {
+  try {
+    const id = clientsIdSchema.parse(req.params.id);
+    const data = clientsParcialSchema.parse(req.body);
+
+    const updatedUsers = await updateParcialUsers(id, data);
+    res.status(200).json(updatedUsers);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function deleteUsers(req, res, next) {
   try {
-    const id = clientsSchemaId.parse(req.params.id);
+    const id = clientsIdSchema.parse(req.params.id);
 
     await removeUsers(id);
 
