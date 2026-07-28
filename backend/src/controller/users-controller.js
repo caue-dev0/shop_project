@@ -1,10 +1,10 @@
 import {
   listAllUsers,
-  findUsersById,
-  createUsers,
-  updateUsers,
-  removeUsers,
-  updateParcialUsers,
+  findUserById,
+  createUser,
+  updateUser,
+  removeUser,
+  updateParcialUser,
 } from "../service/users-service.js";
 
 import {
@@ -23,38 +23,38 @@ export async function getAllUsers(req, res, next) {
   }
 }
 
-export async function getUsersById(req, res, next) {
+export async function getUserById(req, res, next) {
   try {
     const id = clientsIdSchema.parse(req.params.id);
 
-    const users = await findUsersById(id);
+    const user = await findUserById(id);
 
-    res.status(200).json(users);
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }
 }
 
-export async function postCreateUsers(req, res, next) {
+export async function postCreateUser(req, res, next) {
   try {
     const data = clientsSchema.parse(req.body);
 
-    const newUsers = await createUsers(data);
+    const user = await createUser(data);
 
-    res.status(201).json(newUsers);
+    res.status(201).json(user);
   } catch (err) {
     next(err);
   }
 }
 
-export async function putUpdateUsers(req, res, next) {
+export async function putUpdateUser(req, res, next) {
   try {
     const id = clientsIdSchema.parse(req.params.id);
     const data = clientsSchema.parse(req.body);
 
-    const updatedUsers = await updateUsers(id, data);
+    const user = await updateUser(id, data);
 
-    res.status(200).json(updatedUsers);
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }
@@ -65,8 +65,8 @@ export async function patchUpdateUsers(req, res, next) {
     const id = clientsIdSchema.parse(req.params.id);
     const data = clientsParcialSchema.parse(req.body);
 
-    const updatedUsers = await updateParcialUsers(id, data);
-    res.status(200).json(updatedUsers);
+    const user = await updateParcialUser(id, data);
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }
@@ -76,7 +76,7 @@ export async function deleteUsers(req, res, next) {
   try {
     const id = clientsIdSchema.parse(req.params.id);
 
-    await removeUsers(id);
+    await removeUser(id);
 
     res.status(204).json({ message: "Usuário removido com sucesso." });
   } catch (err) {

@@ -1,4 +1,12 @@
-import { pool } from "../database/pool.js";
+import {
+  allUsers,
+  userByEmail,
+  userById,
+  createNewUser,
+  updateUserFull,
+  updateUserPartial,
+  deleteUser,
+} from "../repository/users-repository.js";
 
 import {
   BadRequestError,
@@ -11,135 +19,85 @@ import {
 import bcrypt from "bcrypt";
 
 export async function listAllUsers() {
-  const users = await pool.query(
-    `
-        SELECT id, name, email, created_at FROM clients;
-        `,
-  );
-
-  return users.rows;
+  return await allUsers();
 }
 
-export async function findUsersById(id) {
-  const users = await pool.query(
-    `
-        SELECT id, name, email, created_at FROM clients
-        WHERE id = $1;
-        `,
-    [id],
-  );
-
-  return users.rows[0];
+export async function findUserById(id) {
+  return await userById(id);
 }
 
-export async function findUsersByEmail(email) {
-  const users = await pool.query(
-    `
-    SELECT id, name, email, password, created_at FROM clients
-    WHERE email = $1;
-    `,
-    [email],
-  );
-
-  return users.rows[0];
+export async function findUserByEmail(email) {
+  return await userByEmail(email);
 }
 
-export async function createUsers(data) {
-  const clients = await findUsersByEmail(data.email);
+export async function createUser(data) {
+  const email = data.email.toLowerCase();
 
-  if (clients) {
+  const emailExists = await findUserByEmail(email);
+
+  if (emailExists) {
     throw new ConflictError("E-mail já existe.");
   }
 
-  const hashPassword = await bcrypt.hash(data.password, 10);
+  const password = await bcrypt.hash(data.password, 10);
 
-  const newUsers = await pool.query(
-    `
-        INSERT INTO clients (name, email, password)
-        VALUES ($1, $2, $3)
-        RETURNING id, name, email, created_at;
-        `,
-    [data.name, data.email, hashPassword],
-  );
+  const userData = {
+    ...data,
+    email,
+    password,
+  };
 
-  return newUsers.rows[0];
+  return await createNewUser(userData);
 }
 
-export async function updateUsers(id, data) {
-  // - pego o usuário
-  // - faço uma busca com os dados enviado
-  // - comparo se os dados enviados bate com o que já estava no banco de dados
-
-  const user = await findUsersById(id);
+export async function updateUser(id, data) {
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não existe");
   }
 
-  const emailExists = await findUsersByEmail(data.email);
+  const emailExists = await findUserByEmail(data.email);
 
   if (emailExists && emailExists.id !== user.id) {
     throw new ConflictError("email já existe");
   }
 
-  const hashPassword = await bcrypt.hash(data.password, 10);
+  if (data.password) {
+    data.password = await bcrypt.hash(data.password, 10);
+  }
 
-  const updatedUsers = await pool.query(
-    `
-        UPDATE clients
-        SET name = $1,
-            email = $2,
-            password = $3
-        WHERE id = $4
-        RETURNING id, name, email, created_at;
-        `,
-    [data.name, data.email, hashPassword, id],
-  );
-
-  return updatedUsers.rows[0];
+  return await updateUserFull(id, data);
 }
 
-export async function updateParcialUsers(id, data) {
-  const user = await findUsersById(id);
+export async function updateParcialUser(id, data) {
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não existe");
   }
 
   if (data.email) {
-    const emailExists = await findUsersByEmail(data.email);
+    const emailExists = await findUserByEmail(data.email);
 
     if (emailExists && emailExists.id !== user.id) {
       throw new ConflictError("email já existe");
     }
   }
 
-  let hashPassword = null;
-
   if (data.password) {
-    hashPassword = await bcrypt.hash(data.password, 10);
+    data.password = await bcrypt.hash(data.password, 10);
   }
-  const updatedUsers = await pool.query(
-    `
-    UPDATE clients
-    SET name = COALESCE($1, name),
-        email = COALESCE($2, email),
-        password = COALESCE($3, password)
-    WHERE id = $4
-    RETURNING id, name, email, created_at;
-    `,
-    [data.name, data.email, hashPassword, id],
-  );
 
-  return updatedUsers.rows[0];
+  return await updateUserPartial(id, data);
 }
 
-export async function removeUsers(id) {
-  await pool.query(
-    `
-        DELETE FROM clients
-        where id = $1
-        `,
-    [id],
-  );
+export async function removeUser(id) {
+  const user = await findUserById(id);
+
+  if (!user) {
+    throw new NotFoundError("Usuário não existe.");
+  }
+
+  await deleteUser(id);
 }
