@@ -44,13 +44,13 @@ Corpo da requisição
 }
 ```
 
-| Método | Endpoint     | Descrição         |
-| ------ | ------------ | ----------------- |
-| GET    | /clients     | Listar clientes   |
-| GET    | /clients/:id | Buscar cliente    |
-| POST   | /clients     | Criar cliente     |
-| PUT    | /clients/:id | Atualizar cliente |
-| DELETE | /clients/:id | Remover cliente   |
+| Método | Endpoint   | Descrição          |
+| ------ | ---------- | ------------------ |
+| GET    | /users     | Listar usuários    |
+| GET    | /users/:id | Buscar usuários    |
+| POST   | /users     | Criar usuários     |
+| PUT    | /users/:id | Atualizar usuários |
+| DELETE | /users/:id | Remover usuários   |
 
 ### Rotas de autenticação
 

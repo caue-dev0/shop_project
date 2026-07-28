@@ -17,11 +17,12 @@ async function login() {
     });
 
     const data = await response.json();
+
     if (response.ok) {
       console.log("Requisição foi enviada com sucesso!");
+      localStorage.setItem("token", data.token);
+      window.location.href = "../pages/home.html";
     }
-
-    localStorage.setItem("token", data.token);
   } catch (error) {
     console.error("Erro na requisição: ", error);
   }
