@@ -27,12 +27,14 @@ cd shop_project
 
 npm install
 
+docker compose up -d
+
 npm run dev
 ```
 
 ## Endpoints da API
 
-### Rotas básicas de clientes
+### Rotas de clientes
 
 Corpo da requisição
 
@@ -51,6 +53,25 @@ Corpo da requisição
 | POST   | /users     | Criar usuários     |
 | PUT    | /users/:id | Atualizar usuários |
 | DELETE | /users/:id | Remover usuários   |
+
+### Rotas de produtos
+
+Corpo da requisição
+
+```json
+{
+  "name": "Televisão",
+  "price": 1499,99
+}
+```
+
+| Método | Endpoint      | Descrição          |
+| ------ | ------------- | ------------------ |
+| GET    | /products     | Listar produtos    |
+| GET    | /products/:id | Buscar produtos    |
+| POST   | /products/:id | Criar produtos     |
+| PUT    | /products/:id | Atualizar produtos |
+| DELETE | /products/:id | Remover produtos   |
 
 ### Rotas de autenticação
 
