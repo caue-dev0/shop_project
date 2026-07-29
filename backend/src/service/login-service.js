@@ -1,6 +1,6 @@
 import { BadRequestError, UnauthorizedError } from "../helpers/api-errors.js";
 
-import { findUsersByEmail, findUsersById } from "./users-service.js";
+import { findUserByEmail, findUserById } from "./users-service.js";
 
 import bcrypt from "bcrypt";
 
@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 export async function login(data) {
   const { email, password } = data;
 
-  const clients = await findUsersByEmail(email);
+  const clients = await findUserByEmail(email);
 
   if (!clients) {
     throw new BadRequestError("E-mail ou senha inválidos.");
@@ -39,7 +39,7 @@ export async function profile(authorization) {
 
   const { id } = jwt.verify(token, process.env.JWT_SECRET);
 
-  const clients = await findUsersById(id);
+  const clients = await findUserById(id);
 
   if (!clients) {
     throw new UnauthorizedError("Não autorizado.");

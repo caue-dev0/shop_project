@@ -1,21 +1,21 @@
 import {
-  listAllUsers,
+  findAllUsers,
   findUserById,
   createUser,
-  updateUser,
+  updateUserFull,
+  updateUserParcial,
   removeUser,
-  updateParcialUser,
 } from "../service/users-service.js";
 
 import {
-  clientsSchema,
-  clientsIdSchema,
-  clientsParcialSchema,
+  usersSchema,
+  usersIdSchema,
+  usersParcialSchema,
 } from "../schemas/users-schema.js";
 
 export async function getAllUsers(req, res, next) {
   try {
-    const users = await listAllUsers();
+    const users = await findAllUsers();
 
     res.status(200).json(users);
   } catch (err) {
@@ -25,7 +25,7 @@ export async function getAllUsers(req, res, next) {
 
 export async function getUserById(req, res, next) {
   try {
-    const id = clientsIdSchema.parse(req.params.id);
+    const id = usersIdSchema.parse(req.params.id);
 
     const user = await findUserById(id);
 
@@ -37,7 +37,7 @@ export async function getUserById(req, res, next) {
 
 export async function postCreateUser(req, res, next) {
   try {
-    const data = clientsSchema.parse(req.body);
+    const data = usersSchema.parse(req.body);
 
     const user = await createUser(data);
 
@@ -49,10 +49,10 @@ export async function postCreateUser(req, res, next) {
 
 export async function putUpdateUser(req, res, next) {
   try {
-    const id = clientsIdSchema.parse(req.params.id);
-    const data = clientsSchema.parse(req.body);
+    const id = usersIdSchema.parse(req.params.id);
+    const data = usersSchema.parse(req.body);
 
-    const user = await updateUser(id, data);
+    const user = await updateUserFull(id, data);
 
     res.status(200).json(user);
   } catch (err) {
@@ -60,21 +60,21 @@ export async function putUpdateUser(req, res, next) {
   }
 }
 
-export async function patchUpdateUsers(req, res, next) {
+export async function patchUpdateUser(req, res, next) {
   try {
-    const id = clientsIdSchema.parse(req.params.id);
-    const data = clientsParcialSchema.parse(req.body);
+    const id = usersIdSchema.parse(req.params.id);
+    const data = usersParcialSchema.parse(req.body);
 
-    const user = await updateParcialUser(id, data);
+    const user = await updateUserParcial(id, data);
     res.status(200).json(user);
   } catch (err) {
     next(err);
   }
 }
 
-export async function deleteUsers(req, res, next) {
+export async function deleteUser(req, res, next) {
   try {
-    const id = clientsIdSchema.parse(req.params.id);
+    const id = usersIdSchema.parse(req.params.id);
 
     await removeUser(id);
 

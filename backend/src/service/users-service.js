@@ -1,33 +1,27 @@
 import {
-  allUsers,
-  userByEmail,
-  userById,
-  createNewUser,
-  updateUserFull,
-  updateUserPartial,
-  deleteUser,
+  findAll,
+  findByEmail,
+  findById,
+  create,
+  updateFull,
+  updateParcial,
+  remove,
 } from "../repository/users-repository.js";
 
-import {
-  BadRequestError,
-  UnauthorizedError,
-  ForbiddenError,
-  NotFoundError,
-  ConflictError,
-} from "../helpers/api-errors.js";
+import { NotFoundError, ConflictError } from "../helpers/api-errors.js";
 
 import bcrypt from "bcrypt";
 
-export async function listAllUsers() {
-  return await allUsers();
+export async function findAllUsers() {
+  return await findAll();
 }
 
 export async function findUserById(id) {
-  return await userById(id);
+  return await findById(id);
 }
 
 export async function findUserByEmail(email) {
-  return await userByEmail(email);
+  return await findByEmail(email);
 }
 
 export async function createUser(data) {
@@ -47,10 +41,10 @@ export async function createUser(data) {
     password,
   };
 
-  return await createNewUser(userData);
+  return await create(userData);
 }
 
-export async function updateUser(id, data) {
+export async function updateUserFull(id, data) {
   const user = await findUserById(id);
 
   if (!user) {
@@ -67,10 +61,10 @@ export async function updateUser(id, data) {
     data.password = await bcrypt.hash(data.password, 10);
   }
 
-  return await updateUserFull(id, data);
+  return await updateFull(id, data);
 }
 
-export async function updateParcialUser(id, data) {
+export async function updateUserParcial(id, data) {
   const user = await findUserById(id);
 
   if (!user) {
@@ -89,7 +83,7 @@ export async function updateParcialUser(id, data) {
     data.password = await bcrypt.hash(data.password, 10);
   }
 
-  return await updateUserPartial(id, data);
+  return await updateParcial(id, data);
 }
 
 export async function removeUser(id) {
@@ -99,5 +93,5 @@ export async function removeUser(id) {
     throw new NotFoundError("Usuário não existe.");
   }
 
-  await deleteUser(id);
+  await remove(id);
 }
