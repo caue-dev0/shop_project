@@ -1,25 +1,52 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
-  padding: 0;
+  padding: 10px;
   box-sizing: border-box;
 
-  display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+
+.container-nav {
+  border: 2px solid black;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.nav-list {
+  list-style-type: none;
+  justify-content: center;
+  display: flex;
+}
+
+.nav-element {
+  color: wheat;
+  padding: 8px;
+}
+
+.nav-links {
+  color: black;
+  text-decoration: none;
+}
+
+.nav-links:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.container-principal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #form-cadastro {
   text-align: center;
   background-color: white;
   padding: 40px;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 12px;
   width: 100%;
   max-width: 600px;
   font-size: 20px;
@@ -34,7 +61,8 @@ body {
 
 button {
   background-color: white;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 12px;
   font-size: 18px;
   font-weight: bold;
   padding: 8px;

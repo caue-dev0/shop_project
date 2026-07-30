@@ -7,35 +7,53 @@
   </head>
 
   <body>
-    <form id="form-cadastro">
-      <div class="form-container">
-        <h1>REGISTRO</h1>
-        <div class="input-container">
-          <label for="name">NOME</label>
-          <input type="text" id="name" placeholder="João Carlos..." />
+    <nav class="container-nav">
+      <ul class="nav-list">
+        <li class="nav-element">
+          <a class="nav-links" href="../index.html">Home</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./products.html">produtos</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./register.html">Registro</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./login.html">Login</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-principal">
+      <form id="form-cadastro">
+        <div class="form-container">
+          <h1>REGISTRO</h1>
+          <div class="input-container">
+            <label for="name">NOME</label>
+            <input type="text" id="name" placeholder="João Carlos..." />
+          </div>
+
+          <div class="input-container">
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" placeholder="joao@email.com" />
+          </div>
+
+          <div class="input-container">
+            <label for="password">SENHA</label>
+            <input type="password" id="password" placeholder="********" />
+          </div>
+
+          <button type="submit">REGISTRAR</button>
+
+          <footer>
+            <p>
+              Já tem uma conta?
+              <a href="../pages/login.html">Login</a>
+            </p>
+          </footer>
         </div>
-
-        <div class="input-container">
-          <label for="email">EMAIL</label>
-          <input type="email" id="email" placeholder="joao@email.com" />
-        </div>
-
-        <div class="input-container">
-          <label for="password">SENHA</label>
-          <input type="password" id="password" placeholder="********" />
-        </div>
-
-        <button type="submit">REGISTRAR</button>
-
-        <footer>
-          <p>
-            Já tem uma conta?
-            <a href="../pages/login.html">Login</a>
-          </p>
-        </footer>
-      </div>
-
-      <script src="../scripts/register-script.js"></script>
-    </form>
+      </form>
+    </div>
+    <script src="../scripts/register-script.js"></script>
   </body>
 </html>

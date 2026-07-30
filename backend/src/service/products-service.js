@@ -19,7 +19,7 @@ export async function findProductById(id) {
 }
 
 export async function createProduct(id, data) {
-  const user = findUserById(id);
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não encontrado ou não existe..");
@@ -29,7 +29,7 @@ export async function createProduct(id, data) {
 }
 
 export async function updateProductFull(id, data) {
-  const user = findUserById(id);
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não encontrado ou não existe.");
@@ -39,7 +39,7 @@ export async function updateProductFull(id, data) {
 }
 
 export async function updateProductParcial(id, data) {
-  const user = findUserById(id);
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não encontrado ou não existe.");
@@ -49,7 +49,7 @@ export async function updateProductParcial(id, data) {
 }
 
 export async function removeProduct(id) {
-  const user = findUserById(id);
+  const user = await findUserById(id);
 
   if (!user) {
     throw new NotFoundError("Usuário não encontrado ou não existe.");

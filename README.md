@@ -34,7 +34,7 @@ npm run dev
 
 ## Endpoints da API
 
-### Rotas de clientes
+### Rotas de usuários
 
 Corpo da requisição
 

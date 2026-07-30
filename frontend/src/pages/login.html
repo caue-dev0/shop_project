@@ -7,30 +7,49 @@
   </head>
 
   <body>
-    <form id="form-cadastro">
-      <h1>LOGIN</h1>
-      <div class="form-container">
-        <div class="input-container">
-          <label for="email">EMAIL</label>
-          <input type="email" id="email" placeholder="maria@email.com" />
+    <nav class="container-nav">
+      <ul class="nav-list">
+        <li class="nav-element">
+          <a class="nav-links" href="../index.html">Home</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./products.html">produtos</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./register.html">Registro</a>
+        </li>
+        <li class="nav-element">
+          <a class="nav-links" href="./login.html">Login</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-principal">
+      <form id="form-cadastro">
+        <h1>LOGIN</h1>
+        <div class="form-container">
+          <div class="input-container">
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" placeholder="maria@email.com" />
+          </div>
+
+          <div class="input-container">
+            <label for="password">SENHA</label>
+            <input type="password" id="password" placeholder="********" />
+          </div>
+
+          <button type="submit">LOGIN</button>
+
+          <footer>
+            <p>
+              Ainda não tem uma conta?
+              <a href="../pages/register.html">Criar conta</a>
+            </p>
+          </footer>
         </div>
 
-        <div class="input-container">
-          <label for="password">SENHA</label>
-          <input type="password" id="password" placeholder="********" />
-        </div>
-
-        <button type="submit">LOGIN</button>
-
-        <footer>
-          <p>
-            Ainda não tem uma conta?
-            <a href="../pages/register.html">Criar conta</a>
-          </p>
-        </footer>
-      </div>
-
-      <script src="../scripts/login-script.js"></script>
-    </form>
+        <script src="../scripts/login-script.js"></script>
+      </form>
+    </div>
   </body>
 </html>

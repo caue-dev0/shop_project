@@ -21,7 +21,7 @@ async function login() {
     if (response.ok) {
       console.log("Requisição foi enviada com sucesso!");
       localStorage.setItem("token", data.token);
-      window.location.href = "../pages/home.html";
+      window.location.href = "../index.html";
     }
   } catch (error) {
     console.error("Erro na requisição: ", error);

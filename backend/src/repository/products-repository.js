@@ -34,8 +34,8 @@ export async function updateFull(id, data) {
   const product = await pool.query(
     `
     UPDATE products
-    SET name = 1$,
-        price = 2$
+    SET name = $1,
+        price = $2
     WHERE id = $3
     RETURNING id, name, price, created_at
     `,

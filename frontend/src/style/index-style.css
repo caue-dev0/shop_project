@@ -1,0 +1,33 @@
+.container-nav {
+  border: 2px solid black;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.nav-list {
+  list-style-type: none;
+  justify-content: center;
+  display: flex;
+}
+
+.nav-element {
+  color: wheat;
+  padding: 8px;
+}
+
+.nav-links {
+  color: black;
+  text-decoration: none;
+}
+
+.nav-links:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.container-principal {
+  border: 2px solid black;
+  border-radius: 12px;
+  height: 85vh;
+  text-align: center;
+}
