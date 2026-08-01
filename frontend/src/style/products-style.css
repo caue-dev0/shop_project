@@ -33,7 +33,6 @@ body {
 .container-principal {
   border: 2px solid black;
   border-radius: 12px;
-  text-align: center;
 }
 
 #container-products {
@@ -45,7 +44,6 @@ body {
 }
 
 .list-products {
-  text-align: center;
   border: 2px solid black;
   border-radius: 12px;
   margin: 12px;

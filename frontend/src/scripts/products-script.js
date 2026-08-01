@@ -9,8 +9,11 @@ async function mostrarProduto() {
     card.classList.add("list-products");
 
     card.innerHTML = `
-      <h2>${product.name}</h2>
-      <p>${product.price}</p>
+      <img src="../images/online-store.png" width="220px">
+      <div class="products-info">
+        <h2 class="products-title">${product.name}</h2>
+        <p class="products-price">${product.price}</p>
+      </div>
       `;
 
     containerProducts.appendChild(card);
