@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import CardProduto from "../components/CardProducts";
+import { useEffect, useState } from "react";
+import CardProduto from "../components/CardProducts/CardProducts";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -29,7 +29,7 @@ export default function Products() {
           key={product.id}
           name={product.name}
           price={product.price}
-          image={product.image}
+          // image={product.image}
         />
       ))}
     </div>
