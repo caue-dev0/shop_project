@@ -1,0 +1,49 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  margin: 0;
+  background-color: #f7fff7;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-text {
+  font-size: 1rem;
+  text-decoration: none;
+  color: #333333;
+}
+.nav-text:hover {
+  color: #141414;
+}
+
+.nav-text.active {
+  color: #141414;
+  font-weight: 600;
+  border-bottom: 2px solid #141414;
+}
+
+.nav-right a {
+  text-decoration: none;
+  color: #f7fff7;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.login-btn {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #0714c7;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #0034ad;
+}

@@ -1,0 +1,72 @@
+/* Container de fundo da página de Auth */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7fff7;
+}
+
+/* Card central com largura controlada */
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  color: #343434;
+}
+
+.auth-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  color: #343434;
+}
+
+.form-input input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  color: #343434;
+  background-color: #ffffff;
+  border: 1.5px solid #343434;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-input input:focus {
+  background-color: #343434;
+  color: #f7fff7;
+}
+
+.button-auth {
+  background-color: #1e2ede;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: #f7fff7;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.button-auth:hover {
+  background-color: #4472ca;
+}

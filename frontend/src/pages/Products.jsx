@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NavBar from "../components/NavBar/NavBar";
 import CardProduto from "../components/CardProducts/CardProducts";
 
 export default function Products() {
@@ -23,15 +24,19 @@ export default function Products() {
   }
 
   return (
-    <div className="catalog-container">
-      {products.map((product) => (
-        <CardProduto
-          key={product.id}
-          name={product.name}
-          price={product.price}
-          // image={product.image}
-        />
-      ))}
-    </div>
+    <>
+      <NavBar />
+      <h1>Produtos</h1>
+      <div className="catalog-container">
+        {products.map((product) => (
+          <CardProduto
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            // image={product.image}
+          />
+        ))}
+      </div>
+    </>
   );
 }
