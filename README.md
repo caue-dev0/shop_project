@@ -1,7 +1,7 @@
 # SHOP PROJECT
 
 _Tecnologias principais:_
-
+- Reactjs
 - NodeJs
 - Express
 - Postgres
