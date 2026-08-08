@@ -1,25 +1,39 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import "./CardProducts.css";
 
-export default function CardProduto({ name, price }) {
-  const formattedPrice = Number(price).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+export function CardProducts() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/products").then((response) =>
+      response.json().then((data) => {
+        setProducts(data);
+      }),
+    );
+  }, []);
 
   return (
-    <div className="product-card">
-      {/* <img src={image} alt={name} />*/}
-      <div className="product-image-placeholder">
-        <span>Sem Imagem</span>
+    <>
+      <h1>Produtos</h1>
+      <div className="catalog-container">
+        {products.map((produto) => (
+          <div key={produto.id} className="product-card">
+            <img
+              className="product-image"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2SjvAWTdm0U_tRhmJwTV9pNU7ks9HjD7VnHDCz6Xexg&s=10"
+              alt={produto.name}
+            ></img>
+            <div className="product-info">
+              <h2 className="product-title">{produto.name}</h2>
+              <p className="product-price">{produto.price}</p>
+              <button type="submit" className="button-buy">
+                Comprar
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div className="product-info">
-        <h3 className="product-title">{name}</h3>
-        <p className="product-price">{formattedPrice}</p>
-        <button type="" className="add-to-cart-btn">
-          Comprar
-        </button>
-      </div>
-    </div>
+    </>
   );
 }

@@ -25,7 +25,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.product-image-placeholder {
+.product-image- {
   width: 100%;
   height: 180px;
   background-color: #f0f0f5;
@@ -62,7 +62,7 @@
   margin: 0;
 }
 
-.add-to-cart-btn {
+.button-buy {
   margin-top: auto;
   width: 100%;
   padding: 10px 0;
@@ -76,7 +76,7 @@
   transition: background-color 0.2s ease;
 }
 
-.add-to-cart-btn:hover {
+.button-buy:hover {
   background-color: #0034ad;
 }
 

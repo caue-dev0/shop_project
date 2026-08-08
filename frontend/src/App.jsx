@@ -1,8 +1,8 @@
-import Products from "./pages/Products";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Products } from "./pages/Products";
+import { Home } from "./pages/Home";
+import { Register } from "./pages/Register";
+import { Login } from "./pages/Login";
 import "./App.css";
 
 function App() {

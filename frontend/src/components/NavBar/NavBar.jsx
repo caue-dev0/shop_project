@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 import "./NavBar.css";
 
-export default function MenuNavegation() {
+export function NavBar() {
   return (
     <nav className="navbar">
       <div className="nav-left">

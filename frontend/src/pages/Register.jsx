@@ -1,7 +1,7 @@
 import { CardRegister } from "../components/CardAuth/CardRegister";
-import NavBar from "../components/NavBar/NavBar";
+import { NavBar } from "../components/NavBar/NavBar";
 
-export default function Register() {
+export function Register() {
   return (
     <>
       <NavBar />
